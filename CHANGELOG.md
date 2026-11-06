@@ -81,6 +81,7 @@
 
 ### Fixed
 
+- In e-mailed products, field labels such as "Threat type:" in a threat landscape report were shrunk to 12px next to 14px values, so every field name read smaller than its text. Labels stay muted in colour but now render at the body text size.
 - A feature on the AI tab whose settings were never saved went to OpenAI, whatever the default provider. It goes to the default provider now, as the AI tab says.
 - A `cti-evaluation` score set on the data collection page left the earlier value of that score on the event. On another MISP server, which unpublishes an event that gets a tag, it also took the event off the page.
 - A workflow state MISP refused left the event with none, and no analyser search found it again.

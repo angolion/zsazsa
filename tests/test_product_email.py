@@ -81,6 +81,9 @@ class MarkdownHtml(unittest.TestCase):
         html = product_email.markdown_html(FIA_MARKDOWN, "Flash Intel Alert")
         self.assertNotIn("<strong>Likely impact:</strong>", html)
         self.assertIn("Likely impact:</span>", html)
+        # The label steps back by colour alone: no font-size, so it renders at
+        # the same size as the value it introduces.
+        self.assertNotIn("font-size:12px", html)
 
 
 def _briefing():
@@ -142,6 +145,8 @@ class BriefingHtml(unittest.TestCase):
         html = product_email.briefing_html(briefing)
         for label in ("What happened:", "Who is affected:"):
             self.assertIn(f"{label}</span>", html)
+            # A story label also keeps the story body size.
+            self.assertRegex(html, rf'<span style="color:[^"]*">{label}</span>')
         self.assertIn("ACME was hit.", html)
 
     def test_story_footer_lists_every_scope_row(self):

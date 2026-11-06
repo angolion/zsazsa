@@ -63,8 +63,11 @@ def _body_html(markdown: str, brand: dict) -> str:
     day that is turned off, every product mail would show escaped tag text.
     Briefing stories write their labels as plain prose instead of bold, which
     mute_lead_labels picks up from the same rendered HTML.
+
+    The span sets no font-size, so a label keeps the body text size: it steps
+    back from the content by colour alone, not by shrinking below it.
     """
-    muted = f'<span style="font-size:12px;color:{brand["color3"]};">'
+    muted = f'<span style="color:{brand["color3"]};">'
     rendered = _LABEL_RE.sub(lambda m: f"{muted}{m.group(1)}</span>", md_to_html(markdown or ""))
     return mute_lead_labels(rendered, muted)
 
